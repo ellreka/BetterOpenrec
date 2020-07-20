@@ -17,9 +17,6 @@ function init() {
   const set = () => {
     changeChatLocation(left);
     // set setting button
-    console.log(bodyElement);
-    console.log(movieElement);
-    console.log(chatElement);
     const settingButton: HTMLElement = document.createElement("div");
     settingButton.className = "better-openrec_setting";
     settingButton.addEventListener("click", () => {
@@ -60,7 +57,6 @@ function init() {
       Object.assign(movieElement.style, movieStyle);
       Object.assign(chatElement.style, chatStyle);
     }
-    console.log(left);
     resizeChatSize(left);
   };
 
@@ -82,7 +78,6 @@ function init() {
       chatElement.appendChild(resizeBar);
       const resizeEvent = (e: MouseEvent) => {
         chatWidth = left ? e.clientX : window.innerWidth - e.clientX;
-        console.log(chatWidth);
         changeChatLocation(left);
       };
       resizeBar.addEventListener("mousedown", () => {
