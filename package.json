@@ -2,9 +2,10 @@
   "private": true,
   "scripts": {
     "build": "rimraf build && webpack --mode production",
-    "start": "rimraf build && webpack --mode development --watch"
+    "dev": "rimraf build && webpack --mode development --watch"
   },
   "devDependencies": {
+    "@ellreka/configs": "^1.0.4",
     "@types/chrome": "^0.0.100",
     "copy-webpack-plugin": "5.1.1",
     "crx-hotreload": "^1.0.4",

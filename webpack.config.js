@@ -1,23 +1,21 @@
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
-    popup: path.join(__dirname, "src/popup.ts"),
-    options: path.join(__dirname, "src/options.ts"),
-    background: path.join(__dirname, "src/background.ts"),
-    content: path.join(__dirname, "src/content.ts")
+    background: path.join(__dirname, 'src/background.ts'),
+    content: path.join(__dirname, 'src/content.ts')
   },
   output: {
-    path: path.join(__dirname, "build"),
-    filename: "[name].js"
+    path: path.join(__dirname, 'build'),
+    filename: '[name].js'
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: {
-          loader: "ts-loader",
+          loader: 'ts-loader',
           options: {
             transpileOnly: true
           }
@@ -25,26 +23,25 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader",
+        loader: 'style-loader!css-loader',
         exclude: /node_modules/
       },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx", ".json", ".mjs", ".wasm"]
+    extensions: ['.js', '.ts']
   },
   plugins: [
-    // new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {
-        from: "assets/*",
+        from: 'public/',
         flatten: true
       }
     ])
   ]
-};
+}
