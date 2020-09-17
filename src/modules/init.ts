@@ -1,56 +1,34 @@
-import { setStorage, getStorage } from './storage'
-
-let config: {
-  isRight: boolean
-  chatWidth: number
-}
+import { getStorage } from './storage'
+import { initChatPosition, initResizeChatBar } from './main'
 
 export async function init() {
-  config = {
-    isRight: (await getStorage('isRight')) ?? true,
-    chatWidth: (await getStorage('chatWidth')) ?? 360
-  }
+  // body要素
   const bodyElement = document.querySelector('body')
+  // 動画要素
   const movieElement: HTMLElement | null = document.querySelector(
     '.movie-page-article'
   )
+  //チャット欄要素
   const chatElement: HTMLElement | null = document.querySelector(
     '.movie-page-chat-aside'
   )
-  const container = document.querySelector(
-    '.MovieToolbar__Wrapper-g5e6ic-0.zoHlM'
-  )
-  const settingButton = document.createElement('div')
-  settingButton.className = 'better-openrec_settingButton'
-  const style = {
-    width: '30px',
-    height: '30px',
-    background: 'red'
-  }
-  Object.assign(settingButton.style, style)
-  settingButton.addEventListener('click', () => {
-    getStorage<boolean>('isRight').then((response) => {
-      setStorage('isRight', !response)
-      config.isRight = !response
-      console.log(config)
-    })
-  })
-
-  if (bodyElement && movieElement && chatElement && container) {
-    container.appendChild(settingButton)
-    return {
+  if (bodyElement && movieElement && chatElement) {
+    //初期設定
+    const chatWidth = (await getStorage<number>('chatWidth')) ?? 360
+    const isRight = (await getStorage<boolean>('isRight')) ?? true
+    initChatPosition(movieElement, chatElement, chatWidth, isRight)
+    initResizeChatBar(
       bodyElement,
       movieElement,
       chatElement,
-      settingButton: settingButton,
-      config
-    }
+      chatWidth,
+      isRight
+    )
   } else {
     console.error({
       bodyElement,
       movieElement,
-      chatElement,
-      container
+      chatElement
     })
     throw new Error('better-openrec: どれかが取得できていない')
   }

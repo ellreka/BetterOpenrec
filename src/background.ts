@@ -8,7 +8,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (
     changeInfo.status === 'complete' &&
     tab.url &&
-    tab.url.indexOf('https://www.openrec.tv') > -1
+    tab.url.indexOf('https://www.openrec.tv/live') > -1
   ) {
     chrome.tabs.executeScript(tabId, {
       file: 'content.js'
